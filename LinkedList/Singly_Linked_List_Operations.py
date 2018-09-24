@@ -106,7 +106,24 @@ class SinglyLinkedList:
 			current = current.next
 		print("None")
 	
-
+	def findLoopInLinkedList(self):
+		slow_ptr = self.head
+		fast_ptr = self.head
+		while fast_ptr != None and slow_ptr != None and fast_ptr.next != None :
+			slow_ptr = slow_ptr.next
+			fast_ptr = fast_ptr.next.next
+			if slow_ptr == fast_ptr:
+				return slow_ptr
+		return False 
+		
+	def removeLoopInList(self,loop_node):
+		ptr1 = self.head
+		ptr2 = loop_node
+		while ptr1.next != ptr2.next:
+			ptr1 = ptr1.next
+			ptr2 = ptr2.next
+		ptr2.next = None
+		return self.head  
 if __name__ == '__main__':
     l = SinglyLinkedList()
     # Add the Nodes to the linked list
@@ -116,16 +133,23 @@ if __name__ == '__main__':
     l.add(3)
     l.add(5)
     l.add(6)
+    l.head.next.next.next.next.next.next = l.head.next.next
+    loop_node = l.findLoopInLinkedList()
+    print(loop_node.val)
+    l.removeLoopInList(loop_node)
     # Display the list
     l.display_list()
-    #Insert the element at a given position
-    l.insert_list_at_pos(3,4)
-    l.insert_list_at_pos(0,0)
-    l.display_list()
-    # Delete the element at a given position
-    l.delete_list_at_pos(3)
-    l.delete_list_at_pos(0)
-    l.display_list()    
-    # Reverse the linked List
-    l.revert_list()
-    l.display_list()    
+    # #Insert the element at a given position
+    # l.insert_list_at_pos(3,4)
+    # l.insert_list_at_pos(0,0)
+    # l.display_list()
+    # # Delete the element at a given position
+    # l.delete_list_at_pos(3)
+    # l.delete_list_at_pos(0)
+    # l.display_list()    
+    # # Reverse the linked List
+    # l.revert_list()
+    # l.display_list()   
+
+
+
